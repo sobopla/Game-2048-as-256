@@ -61,8 +61,34 @@ Game.prototype.toString = function() {
   return this.board[0].join("")+"\n"+this.board[1].join("")+"\n"+this.board[2].join("")+"\n"+this.board[3].join("")
 }
 
-Game.pro
+Game.prototype.move = function(direction) {
+  if (direction === "left") {
+    this.left()
+    //not finished
+  }
+  this.htmlIfyer()
+}
   
+Game.prototype.left = function() {
+  for (row = 0; row < 4; row++) {
+    this.rowleft(this.board[row])
+  }
+}
+
+Game.prototype.rowleft = function(rowvalues) {
+  //move one row at a time
+  rowvalues[0] = 1
+}
+
+
+//move every element as far as it will go 
+//try to combine elements if you can by adding and merging them into one cell
+//when done , add a new random 2 or 4 to the board. ft add just a two or four
+  //for left and right just use row 
+    //work one row at a time
+    //make a row left function for just one row
+  //for up and down just use col
+
 
 
 
