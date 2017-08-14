@@ -21,6 +21,7 @@ var Game = function(stringOfSixteen = ""){
   else { 
     this.generateRandomBoard()
   }
+  this.htmlIfyer()
 }
 
 // method to generate random board with 2 2
@@ -43,13 +44,26 @@ Game.prototype.generateRandomBoard = function() {
 Game.prototype.htmlIfyer = function() {
   for ( row = 0; row < 4; row++) {
      for ( col = 0; col < 4; col++) {
-      $(`.row${row}-col${col}`).text(this.board[row][col])
-     }
+       
+       // $('.row' + row + '-col' + col).text(this.board[row][col])
+       if (this.board[row][col] == 0) {
+          $(`.row${row}-col${col}`).text("[]")
+       }
+       else {
+          $(`.row${row}-col${col}`).text(this.board[row][col])
+      }
+    }
   }
-
-
-  
 }
+
+// To String method for printing
+Game.prototype.toString = function() {
+  return this.board[0].join("")+"\n"+this.board[1].join("")+"\n"+this.board[2].join("")+"\n"+this.board[3].join("")
+}
+
+Game.pro
+  
+
 
 
 
