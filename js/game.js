@@ -80,15 +80,18 @@ Game.prototype.rowleft = function(rowvalues) {
   var changed
   do {
     changed = false
+    console.log("starting check")
     for (i = 0; i < 3; i++) {
       if (rowvalues[i] == 0 && rowvalues[i+1] != 0) {
         rowvalues[i] = rowvalues[i+1]
         rowvalues[i + 1] = 0
-        chaged = true
+        console.log("moved left at i = " + i)
+        changed = true
       }
       else if (rowvalues[i] !=0 && rowvalues[i] == rowvalues[i+1]) {
         rowvalues[i] += rowvalues[i+1]
         rowvalues[i + 1] = 0
+        console.log("merged left at i = " + i)
         changed = true
       }
     }
@@ -108,12 +111,12 @@ Game.prototype.rowleft = function(rowvalues) {
 
 
 
-
+// first psuedo
 // update the board function
 // add things function
 // up move and functions check to add
 // down  move and functions check to add
 // right move and functions check to add
-//  left move and functions check to add
+// left move and functions check to add
 // check bottom for adding?
 // 
