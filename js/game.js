@@ -1,18 +1,11 @@
-//two constructors 
-//one take no arguments
-//one takes a string
-// var Game = function() {
-//   this.board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
-//   this.startTiles = 2;
-// }
 
 var Game = function(stringOfSixteen = ""){
 	// this.board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
-  this.board = [[3,3,3,3],[7,7,7,7],[5,6,7,5],[2,4,6,8]] 
+  this.board = [[2,2,0,0],[0,0,2,0],[0,0,0,0],[0,4,0,4]] 
   if (stringOfSixteen.length == 16) {
     var position = 0
-    for ( row = 0; row < 4; row++) {
-      for ( col = 0; col < 4; col++) {
+    for (var row = 0; row < 4; row++) {
+      for (var col = 0; col < 4; col++) {
         this.board[row][col] = stringOfSixteen.substr(position, 1);
         ++position;
       }
@@ -25,39 +18,38 @@ var Game = function(stringOfSixteen = ""){
   this.htmlIfyer()
 }
 
-// method to generate random board with 2 2
+// GENERATE RANDOME BOARD WITH 2 2's ////pick two different random positions and put a value of 2 in them //choose rand row and col since they are empty
+
 Game.prototype.generateRandomBoard = function() {
-  //pick two different random positions and put a value of 2 in them
-  var row = Math.floor(Math.random() * 4) //choose rand row and col since they are empty
-  var col = Math.floor(Math.random() * 4)
+  var row = Math.floor(Math.random() * 4)   var col = Math.floor(Math.random() * 4)
   firstTwo = this.board[row][col] = 2;
-  // check if 2 already exists before placing second 2
   do { 
     row = Math.floor(Math.random() * 4)
     col = Math.floor(Math.random() * 4)
   } 
   while (this.board[row][col] == 2) 
   this.board[row][col] = 2;
+
 } 
 
 
-// method to find randome empty cell
-Game.prototype.emptyFinder = function() { //pick random cell that == 0
-  do {
-  var row = Math.floor(Math.random() * 4) //choose rand row and col 
-  var col = Math.floor(Math.random() * 4)
-  cellToCheck = this.board[row][col]
+// FILL WITH A TWO OR FOUR AFTER A MOVE //find all the zeros / get a random zero / fill with a two
+Game.prototype.fill = function(){
+  do { 
+      var row = Math.floor(Math.random() * 4)
+      var col = Math.floor(Math.random() * 4)
+      } 
+  while (this.board[row][col] >= 1)
+    console.log(this.board[row][col]);
+  this.board[row][col] = 2;
+    console.log(this.board[row][col])
   }
-  while (cellToCheck != 0) // is cellToCheck = 0?
-  return cellToCheck
-  console.log(cellToCheck)
-}
 
 
-// method to fill html with correlating cells
+// HTML FILLER
 Game.prototype.htmlIfyer = function() {
-  for ( row = 0; row < 4; row++) {
-     for ( col = 0; col < 4; col++) {
+  for (var row = 0; row < 4; row++) {
+     for (var col = 0; col < 4; col++) {
        
        // $('.row' + row + '-col' + col).text(this.board[row][col])
        if (this.board[row][col] == 0) {
@@ -70,36 +62,44 @@ Game.prototype.htmlIfyer = function() {
   }
 }
 
-// To String method for printing
+// TO STRING
 Game.prototype.toString = function() {
   return this.board[0].join("")+"\n"+this.board[1].join("")+"\n"+this.board[2].join("")+"\n"+this.board[3].join("")
 }
 
-// Move method for right , left , up , down
+// MOVE UP RIGHT DOWN LEFT
 Game.prototype.move = function(direction) {
   if (direction === "left") {
     this.left()
-    //not finished
   }
-  /// put in newNumber method here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  else if (direction === "right") {
+    this.right()
+  }
+  this.fill()
   this.htmlIfyer()
 }
   
 // Move left for a row, calls on rowleft 
 Game.prototype.left = function() {
-  for (row = 0; row < 4; row++) {
+  for (var row = 0; row < 4; row++) {
     this.rowleft(this.board[row])
   }
 }
 
-// Make row go left
+Game.prototype.right = function() {
+  for (var row = 0; row < 4; row++) {
+    this.rowright(this.board[row])
+  }
+}
+
+// Make row go left //move one col at a time
 Game.prototype.rowleft = function(rowvalues) {
-  //move one row at a time
+  
   var changed
   do {
     changed = false
     console.log("starting check")
-    for (i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) { //need a var infront of i here so it is NOT a global variable 
       if (rowvalues[i] == 0 && rowvalues[i+1] != 0) {
         rowvalues[i] = rowvalues[i+1]
         rowvalues[i + 1] = 0
@@ -110,6 +110,30 @@ Game.prototype.rowleft = function(rowvalues) {
         rowvalues[i] += rowvalues[i+1]
         rowvalues[i + 1] = 0
         console.log("merged left at    i = " + i)
+        changed = true
+      }
+    }
+  }
+  while (changed)
+}
+
+// Make row go right move one col at a time
+Game.prototype.rowright = function(rowvalues) {
+  var changed
+  do {
+    changed = false
+    console.log("starting check")
+    for (var i = 3; i >= 0; i--) {
+      if (rowvalues[i] == 0 && rowvalues[i-1] != 0) {
+        rowvalues[i] = rowvalues[i-1]
+        rowvalues[i - 1] = 0
+        console.log("moved right at i = " - i)
+        changed = true
+      }
+      else if (rowvalues[i] !=0 && rowvalues[i] == rowvalues[i-1]) {
+        rowvalues[i] += rowvalues[i-1]
+        rowvalues[i - 1] = 0
+        console.log("merged right at    i = " - i)
         changed = true
       }
     }
@@ -142,7 +166,13 @@ Game.prototype.rowleft = function(rowvalues) {
     //make a row left function for just one row
   //for up and down just use col
 
-
+//two constructors 
+//one take no arguments
+//one takes a string
+// var Game = function() {
+//   this.board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+//   this.startTiles = 2;
+// }
 
 
 // first psuedo
