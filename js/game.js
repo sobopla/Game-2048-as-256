@@ -66,6 +66,7 @@ Game.prototype.move = function(direction) {
     this.left()
     //not finished
   }
+  /// put in newNumber method here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   this.htmlIfyer()
 }
   
@@ -99,6 +100,11 @@ Game.prototype.rowleft = function(rowvalues) {
   while (changed)
 }
 
+Game.prototype.newNumber = function() {
+  //scan the whole board for at least one empty cell 
+  //choose random AND empty position
+  //choose a 2 or a 4 and stick in 
+}
 
 //move every element as far as it will go 
 //try to combine elements if you can by adding and merging them into one cell
