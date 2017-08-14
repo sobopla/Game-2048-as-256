@@ -77,7 +77,23 @@ Game.prototype.left = function() {
 
 Game.prototype.rowleft = function(rowvalues) {
   //move one row at a time
-  rowvalues[0] = 1
+  var changed
+  do {
+    changed = false
+    for (i = 0; i < 3; i++) {
+      if (rowvalues[i] == 0 && rowvalues[i+1] != 0) {
+        rowvalues[i] = rowvalues[i+1]
+        rowvalues[i + 1] = 0
+        chaged = true
+      }
+      else if (rowvalues[i] !=0 && rowvalues[i] == rowvalues[i+1]) {
+        rowvalues[i] += rowvalues[i+1]
+        rowvalues[i + 1] = 0
+        changed = true
+      }
+    }
+  }
+  while (changed)
 }
 
 
