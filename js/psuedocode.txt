@@ -1,0 +1,17 @@
+array of 16 
+either 2 or 4 is the new number after every step
+not sure how to handle rows
+if there are two of the same numbers on the same row, when they touch they are added together
+
+down arrow moves all the numbers to the last bottom spot in their column not occupied by the same numbers
+    if the column has the same number the numbers will add if they touch
+
+How do blocks spawn?
+
+When does the game disallow a movement? 
+
+How do blocks merge?
+
+How do blocks slide?
+
+[[,,,],[,,,],[,,,],[,,,]]

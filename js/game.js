@@ -39,8 +39,15 @@ Game.prototype.generateRandomBoard = function() {
 }
 
 
-// method to fill html
+// method to fill html with correlating cells
 Game.prototype.htmlIfyer = function() {
+  for ( row = 0; row < 4; row++) {
+     for ( col = 0; col < 4; col++) {
+      $(`.row${row}-col${col}`).text(this.board[row][col])
+     }
+  }
+
+
   
 }
 
